@@ -2,9 +2,14 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ACME.App">
-	<Application.Resources>
-
-		<!-- Application resource dictionary -->
-
-	</Application.Resources>
+    <Application.Resources>
+        <!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <x:String x:Key="User">q</x:String>
+            <x:String x:Key="Password">q</x:String>
+            <x:Boolean x:Key="Mock">True</x:Boolean>
+            <Color x:Key="MainColor">#3dcb01</Color>
+            <Color x:Key="AccentColor">#DE572A</Color>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>
