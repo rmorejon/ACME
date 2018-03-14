@@ -1,34 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Xamarin.Forms;
-
-namespace ACME
+﻿namespace ACME
 {
-	public partial class App : Application
-	{
-		public App ()
-		{
-			InitializeComponent();
+    using ACME.Pages;
+    using ACME.ViewModels.Base;
 
-			MainPage = new ACME.MainPage();
-		}
+    using Xamarin.Forms;
 
-		protected override void OnStart ()
-		{
-			// Handle when your app starts
-		}
+    public partial class App : Application
+    {
+        #region Constructors
 
-		protected override void OnSleep ()
-		{
-			// Handle when your app sleeps
-		}
+        static App()
+        {
+            BuildDependencies();
+        }
 
-		protected override void OnResume ()
-		{
-			// Handle when your app resumes
-		}
-	}
+        public App()
+        {
+            InitializeComponent();
+
+            this.MainPage = new LoginPage();
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public static void BuildDependencies()
+        {
+            Locator.Instance.Build();
+        }
+
+        #endregion
+
+        #region Methods
+
+        protected override void OnStart()
+        {
+            // Handle when your app starts
+        }
+
+        protected override void OnSleep()
+        {
+            // Handle when your app sleeps
+        }
+
+        protected override void OnResume()
+        {
+            // Handle when your app resumes
+        }
+
+        #endregion
+    }
 }
