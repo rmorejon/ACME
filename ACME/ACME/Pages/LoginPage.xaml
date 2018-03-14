@@ -1,8 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ACME.Controls;assembly=ACME"
+             xmlns:viewModels="clr-namespace:ACME.ViewModels;assembly=ACME"
              x:Class="ACME.Pages.LoginPage">
+    <ContentPage.BindingContext>
+        <viewModels:LoginPageViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-
+        <ScrollView>
+            <StackLayout VerticalOptions="Center"
+                         HorizontalOptions="Center"
+                         WidthRequest="500"
+                         Orientation="Vertical">
+                <Image Aspect="AspectFill"
+                       HorizontalOptions="Center"
+                       MinimumWidthRequest="100"
+                       Source="logo.png" />
+                <StackLayout Orientation="Vertical"
+                             Spacing="10"
+                             Padding="20, 20, 20, 10">
+                    <controls:ExtendedEntry  Placeholder="Your User"
+                                             HorizontalOptions="FillAndExpand"
+                                             FocusLineColor="{StaticResource MainColor}"
+                                             Image="user"
+                                             ImageAlignment="Left"
+                                             ImageWidth="16"
+                                             ImageHeight="16"
+                                             Text="{Binding User, Mode=TwoWay }" />
+                    <controls:ExtendedEntry  IsPassword="true"
+                                             Placeholder="Your Password"
+                                             Image="password"
+                                             ImageAlignment="Left"
+                                             ImageWidth="16"
+                                             ImageHeight="16"
+                                             FocusLineColor="{StaticResource MainColor}"
+                                             Text="{Binding Password, Mode=TwoWay}" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical"
+                             Spacing="10"
+                             Padding="20, 0, 20, 0"
+                             VerticalOptions="EndAndExpand"
+                             HorizontalOptions="FillAndExpand">
+                    <Button Command="{ Binding LoginCommand }"
+                            AutomationId="authButton"
+                            Text="Login"
+                            TextColor="White"
+                            VerticalOptions="EndAndExpand"
+                            BackgroundColor="{StaticResource MainColor}"
+                            HorizontalOptions="FillAndExpand">
+                    </Button>
+                    <Label Text="Forgot?"
+                           HorizontalTextAlignment="End"
+                           HorizontalOptions="End" />
+                    <ActivityIndicator IsRunning="{Binding IsRunning}" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
