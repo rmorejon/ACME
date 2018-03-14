@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ACME.ViewModels;assembly=ACME"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="ACME.Pages.DashBoardPage">
+    <ContentPage.BindingContext>
+        <viewModels:DashBoardPageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="New Ticket"
+                     Order="Primary"
+                     Icon="add.png" />
+        <ToolbarItem Text="Menu"
+                     Order="Primary"
+                     Icon="menu.png" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout BackgroundColor="Transparent"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand">
+                <Grid HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Image Margin="15,0,0,15"
+                           Aspect="AspectFill"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Source="calendar.png"
+                           />
+                    <Image Grid.Column="1"
+                           Margin="0,0,0,15"
+                           Aspect="AspectFill"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Source="sync.png" />
+                    <Image Grid.Column="2"
+                           Margin="15,0,0,15"
+                           Aspect="AspectFill"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="CenterAndExpand"
+                           Source="logo.png" />
+                    <Image HeightRequest="90"
+                           WidthRequest="90"
+                           Grid.Column="3"
+                           Margin="15,0,0,15"
+                           Aspect="AspectFill"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Source="add.png" />
+                    <Image HeightRequest="90"
+                           WidthRequest="90"
+                           Grid.Column="4"
+                           Margin="0,0,0,15"
+                           Aspect="AspectFill"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Source="menu.png" />
+                </Grid>
+            </StackLayout>
+            <Label Text="   Dec 24, 2016"
+                   Grid.Row="1"
+                   FontSize="25"
+                   HorizontalTextAlignment="Start"
+                   VerticalTextAlignment="Center"
+                   VerticalOptions="Center"
+                   BackgroundColor="LightGray"
+                   TextColor="DarkGray"
+                   LineBreakMode="TailTruncation" />
+            <ScrollView Grid.Row="2">
+                <ListView SeparatorColor="Transparent"
+                          SeparatorVisibility="Default"
+                          HasUnevenRows="True"
+                          Margin="10"
+                          RowHeight="120"
+                          ItemsSource="{Binding Tickets}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell IsEnabled="false">
+                                <StackLayout BackgroundColor="Transparent"
+                                             Padding="0,15,0,15"
+                                             HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="FillAndExpand">
+                                    <Grid BackgroundColor="White"
+                                          Padding="10"
+                                          ColumnSpacing="15"
+                                          Margin="20,0,20,0"
+                                          VerticalOptions="FillAndExpand">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="28" />
+                                            <RowDefinition Height="28" />
+                                            <RowDefinition Height="28" />
+                                            <RowDefinition Height="28" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="2"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Text="{Binding DateTime, StringFormat='{}{0:HH\\:MM tt}'}"
+                                               Grid.Row="0"
+                                               Margin="3,6,6,0"
+                                               FontAttributes="Bold"
+                                               FontSize="20"
+                                               Grid.Column="0"
+                                               LineBreakMode="TailTruncation" />
+                                        <Label Text="{Binding DateTime, StringFormat='{}{0:M/dd/yyyy}'}"
+                                               Grid.Row="1"
+                                               Grid.Column="0"
+                                               FontSize="20"
+                                               Margin="3,6,6,0"
+                                               TextColor="DarkGray"
+                                               LineBreakMode="TailTruncation" />
+                                        <Label Text="{Binding TicketId, StringFormat='Ticket #{0}'}"
+                                               Grid.Row="3"
+                                               Grid.Column="0"
+                                               Margin="3,6,6,0"
+                                               FontSize="20"
+                                               TextColor="DarkGray"
+                                               LineBreakMode="TailTruncation" />
+                                        <BoxView VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="Center"
+                                                 BackgroundColor="#dddddd"
+                                                 Grid.RowSpan="4"
+                                                 Grid.Row="0"
+                                                 Grid.Column="1"></BoxView>
+
+                                        <Label Text="{Binding Address}"
+                                               Grid.Column="2"
+                                               Margin="3,6,6,0"
+                                               FontAttributes="Bold"
+                                               FontSize="20"
+                                               Grid.Row="0"
+                                               LineBreakMode="TailTruncation" />
+                                        <Button Grid.Column="3"
+                                                Grid.Row="0"
+                                                Grid.RowSpan="3"
+                                                Margin="0,0,20,0"
+                                                AutomationId="authButton"
+                                                Text="ViewTicket"
+                                                TextColor="White"
+                                                VerticalOptions="Center"
+                                                BackgroundColor="{StaticResource MainColor}"
+                                                HorizontalOptions="End">
+                                        </Button>
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
