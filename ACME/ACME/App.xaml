@@ -9,8 +9,8 @@
         <ResourceDictionary>
             <locator:Locator x:Key="Locator"></locator:Locator>
             <converter:BooleanNegationConverter x:Key="BooleanNegationConverter"/>
-            <x:String x:Key="User">1</x:String>
-            <x:String x:Key="Password">1</x:String>
+            <x:String x:Key="User">Admin</x:String>
+            <x:String x:Key="Password">Admin</x:String>
             <x:Boolean x:Key="Mock">True</x:Boolean>
             <Color x:Key="MainColor">#3dcb01</Color>
             <Color x:Key="AccentColor">#DE572A</Color>
