@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ACME.ViewModels;assembly=ACME"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             x:Class="ACME.Pages.OverviewPage">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
+    <ContentPage.Behaviors>
+        <behaviorsPack:EventToCommandBehavior EventName="Appearing"
+                                              Command="{Binding OverviewPageViewModel.LoadCommand}" />
+    </ContentPage.Behaviors>
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout BackgroundColor="#f2f2f2"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand">
+                <Grid HorizontalOptions="FillAndExpand"
+                      Margin="0,15,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
+                    <Image Margin="15,0,0,0"
+                           Aspect="AspectFill"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Source="dashboard.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BackCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Grid.Column="1"
+                           Aspect="AspectFill"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="CenterAndExpand"
+                           Source="workTicket.png" />
+                    <Image Grid.Column="2"
+                           x:Name="ImageMenu"
+                           Aspect="AspectFill"
+                           BindingContext="{Binding Main, Source={StaticResource Locator}}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Source="menu.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowPopupCommand}"
+                                                  CommandParameter="{Binding Source={x:Reference ImageMenu}}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+            </StackLayout>
+            <ScrollView Grid.Row="1">
+                <Grid Padding="5,30,5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="33" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Customer Info:"
+                           FontSize="18"
+                           Margin="50,0,0,0"
+                           HorizontalTextAlignment="Start"
+                           VerticalTextAlignment="Center"
+                           VerticalOptions="Center"
+                           HorizontalOptions="FillAndExpand"
+                           TextColor="DarkGray" />
+                    <Label Text="Schedule for:"
+                           FontSize="18"
+                           Margin="50,0,0,0"
+                           Grid.Column="1"
+                           Grid.Row="0"
+                           HorizontalTextAlignment="Start"
+                           VerticalTextAlignment="Center"
+                           VerticalOptions="Center"
+                           HorizontalOptions="FillAndExpand"
+                           TextColor="DarkGray" />
+                    <Grid  Grid.Column="0"
+                           Grid.Row="1"
+                           RowSpacing="40"
+                           Margin="50,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="34" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="{Binding DashBoardPageViewModel.SelectedTicket.Customer}"
+                               FontSize="25"
+                               Grid.Column="0"
+                               HorizontalTextAlignment="Start"
+                               VerticalTextAlignment="Center"
+                               VerticalOptions="Start"
+                               HorizontalOptions="FillAndExpand" />
+
+                        <Image Aspect="AspectFill"
+                               WidthRequest="24"
+                               Margin="10,0,0,0"
+                               HeightRequest="24"
+                               Grid.Column="1"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               Source="phoneCall.png">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CallCommand}" />
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                        <Label Text="{Binding DashBoardPageViewModel.SelectedTicket.Phone}"
+                               FontSize="25"
+                               Grid.Column="2"
+                               HorizontalTextAlignment="Start"
+                               VerticalTextAlignment="Center"
+                               VerticalOptions="Start"
+                               HorizontalOptions="FillAndExpand" />
+                    </Grid>
+                    <Label Text="{Binding DashBoardPageViewModel.SelectedTicket.FullDateTime}"
+                           FontSize="25"
+                           Margin="50,0,0,0"
+                           Grid.Column="1"
+                           Grid.Row="1"
+                           HorizontalTextAlignment="Start"
+                           VerticalTextAlignment="Center"
+                           VerticalOptions="Center"
+                           HorizontalOptions="FillAndExpand" />
+                    <BoxView HeightRequest="2"
+                             VerticalOptions="Center"
+                             HorizontalOptions="FillAndExpand"
+                             BackgroundColor="#dddddd"
+                             Grid.ColumnSpan="2"
+                             Grid.Column="0"
+                             Grid.Row="3"></BoxView>
+                    <Grid  Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Grid.Row="4"
+                           RowSpacing="10"
+                           Margin="50,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.65*" />
+                            <ColumnDefinition Width="0.35*" />
+                            <ColumnDefinition Width="2" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="24" />
+                            <RowDefinition Height="100" />
+                            <RowDefinition Height="24" />
+                            <RowDefinition Height="35" />
+                            <RowDefinition Height="35" />
+                        </Grid.RowDefinitions>
+                        <StackLayout Orientation="Horizontal">
+                            <Image Aspect="AspectFill"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="Start"
+                                   Source="marker.png" />
+                            <Label Text="Job Site Address:"
+                                   FontSize="18"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Center"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="FillAndExpand"
+                                   TextColor="DarkGray" />
+                        </StackLayout>
+                        <Label Text="{Binding DashBoardPageViewModel.SelectedTicket.Address}"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               FontSize="25"
+                               LineBreakMode="WordWrap" />
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="2"
+                                     Grid.Column="0">
+                            <Image Aspect="AspectFill"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="Start"
+                                   Source="sent.png" />
+                            <Label Text="Distance:"
+                                   FontSize="18"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Center"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="FillAndExpand"
+                                   TextColor="DarkGray" />
+                        </StackLayout>
+                        <Label Text="Approx. 17 minutes"
+                               Grid.Row="3"
+                               Grid.Column="0"
+                               FontSize="25"
+                               LineBreakMode="TailTruncation" />
+                        <Label Text="11.9 miles"
+                               Grid.Row="4"
+                               Grid.Column="0"
+                               FontSize="18"
+                               HorizontalTextAlignment="Start"
+                               VerticalTextAlignment="Center"
+                               VerticalOptions="Center"
+                               HorizontalOptions="FillAndExpand"
+                               TextColor="#b4b4b4" />
+
+                        <Button Grid.Column="1"
+                                Grid.Row="0"
+                                Grid.RowSpan="3"
+                                Margin="0,0,20,10"
+                                AutomationId="authButton"
+                                Text="Get Directions"
+                                TextColor="White"
+                                Command="{Binding GoCommand}"
+                                CommandParameter="MapPage"
+                                VerticalOptions="Start"
+                                BackgroundColor="{StaticResource MainColor}"
+                                HorizontalOptions="End">
+                        </Button>
+
+                        <BoxView VerticalOptions="FillAndExpand"
+                                 HorizontalOptions="Center"
+                                 BackgroundColor="#dddddd"
+                                 Margin="0,-25,0,0"
+                                 Grid.RowSpan="5"
+                                 Grid.Row="0"
+                                 Grid.Column="2">
+                        </BoxView>
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="0"
+                                     Grid.Column="3">
+                            <Image Aspect="AspectFill"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="Start"
+                                   Source="document.png" />
+                            <Label Text="Dispatch Note:"
+                                   FontSize="18"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Center"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="FillAndExpand"
+                                   TextColor="DarkGray" />
+                        </StackLayout>
+
+                        <ScrollView  Grid.Row="1"
+                                     Grid.RowSpan="2"
+                                     Grid.Column="3">
+                            <Label Text="{Binding DashBoardPageViewModel.SelectedTicket.Note}"
+                                   IsEnabled="False"
+                                   TextColor="DarkGray"
+                                   Margin="15,0,0,0"
+                                   FontSize="18"
+                                   LineBreakMode="WordWrap"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="FillAndExpand" />
+                        </ScrollView>
+
+                        <BoxView HeightRequest="2"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="FillAndExpand"
+                                 BackgroundColor="#dddddd"
+                                 Grid.ColumnSpan="2"
+                                 Grid.Column="2"
+                                 Grid.Row="3"></BoxView>
+
+                        <StackLayout Orientation="Horizontal"
+                                     Grid.Row="4"
+                                     Grid.Column="3">
+                            <Label Text="Dep. Class:"
+                                   FontSize="18"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Center"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start"
+                                   TextColor="DarkGray" />
+
+                            <Label Text="{Binding DashBoardPageViewModel.SelectedTicket.Departament}"
+                                   FontSize="25"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Center"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="StartAndExpand"/>
+
+                            <Label Text="Service Type:"
+                                   FontSize="18"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Center"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="End"
+                                   TextColor="DarkGray" />
+
+                            <Label Text="{Binding DashBoardPageViewModel.SelectedTicket.ServiceType}"
+                                   FontSize="25"
+                                   HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Center"
+                                   Margin="0,0,10,0"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="End"/>
+                        </StackLayout>
+                    </Grid>
+                    <BoxView HeightRequest="10"
+                             VerticalOptions="Center"
+                             HorizontalOptions="FillAndExpand"
+                             BackgroundColor="#dddddd"
+                             Grid.ColumnSpan="2"
+                             Grid.Column="0"
+                             Grid.Row="5"></BoxView>
+                    <Grid Grid.ColumnSpan="2"
+                          VerticalOptions="FillAndExpand"
+                          HorizontalOptions="FillAndExpand"
+                          Margin="50,0,0,0"
+                          Grid.Column="0"
+                          Grid.Row="6"
+                          ColumnSpacing="15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Reason for Call:"
+                               FontSize="18"
+                               HorizontalTextAlignment="Start"
+                               VerticalTextAlignment="Start"
+                               VerticalOptions="Start"
+                               HorizontalOptions="Start"
+                               TextColor="DarkGray" />
+                        <ScrollView Grid.Column="1"
+                                    Grid.Row="0"
+                                    Margin="15,0,0,0"
+                                    Grid.RowSpan="3">
+                            <Label Text="{Binding DashBoardPageViewModel.SelectedTicket.Reason}"
+                                   IsEnabled="False"
+                                   TextColor="DarkGray"
+                                   FontSize="18"
+                                   LineBreakMode="WordWrap"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="FillAndExpand" />
+                        </ScrollView>
+                        <Label Text="{Binding DashBoardPageViewModel.SelectedTicket.TicketId, StringFormat='Ticket #{0}'}"
+                               Grid.Column="2"
+                               Grid.Row="2"
+                               Margin="0,0,10,0"
+                               FontSize="18"
+                               HorizontalTextAlignment="End"
+                               VerticalTextAlignment="End"
+                               VerticalOptions="End"
+                               HorizontalOptions="End"
+                               TextColor="DarkGray" />
+                    </Grid>
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

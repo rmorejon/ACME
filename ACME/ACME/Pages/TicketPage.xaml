@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<forms:BottomTabbedPage  xmlns="http://xamarin.com/schemas/2014/forms"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                         xmlns:pages="clr-namespace:ACME.Pages;assembly=ACME"
+                         xmlns:controls="clr-namespace:ACME.Controls;assembly=ACME"
+                         xmlns:forms="clr-namespace:Naxam.Controls.Forms;assembly=Naxam.BottomTabbedPage.Forms"
+                         NavigationPage.HasNavigationBar="False"
+                         x:Class="ACME.Pages.TicketPage">
+    <pages:OverviewPage Title="Overview"
+                        Icon="overview.png" />
+    <ContentPage Title="Work Details" 
+                 Icon="work.png"/>
+    <ContentPage Title="Purchasing"
+                 Icon="purchasing.png"/>
+    <ContentPage Title="Finishing up"
+                 Icon="exit.png"/>
+    <ContentPage Title="Photo"
+                 Icon="camera.png" />
+</forms:BottomTabbedPage>

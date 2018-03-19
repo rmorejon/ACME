@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:controls="clr-namespace:ACME.Controls;assembly=ACME"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             x:Class="ACME.Pages.MapPage">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
+    <ContentPage.Behaviors>
+        <behaviorsPack:EventToCommandBehavior EventName="Appearing"
+                                              Command="{Binding MapPageViewModel.LoadCommand}" />
+    </ContentPage.Behaviors>
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout BackgroundColor="#f2f2f2"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand">
+                <Grid HorizontalOptions="FillAndExpand"
+                      Margin="0,15,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Margin="15,0,0,0"
+                           Aspect="AspectFill"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Source="dashboard.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BackCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Grid.Column="1"
+                           Aspect="AspectFill"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="CenterAndExpand"
+                           Source="getDirections.png" />
+                </Grid>
+            </StackLayout>
+            <StackLayout VerticalOptions="StartAndExpand"
+                         Grid.Row="1"
+                         Padding="30">
+                   <controls:MapBehavior VerticalOptions="FillAndExpand"
+                                      HorizontalOptions="FillAndExpand"
+                                      x:Name="MyMap"
+                                      ItemsSource="{Binding MapPageViewModel.Pins}"
+                                      IsShowingUser="true"
+                                      MapType="Hybrid" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
