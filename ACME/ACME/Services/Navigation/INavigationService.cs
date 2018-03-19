@@ -11,6 +11,8 @@
 
         Task NavigateTo(Type type);
 
+        Task Back();
+
         #endregion
     }
 }

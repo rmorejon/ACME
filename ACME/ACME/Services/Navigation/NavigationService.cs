@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ACME.Services.Navigation
+﻿namespace ACME.Services.Navigation
 {
+    using System;
     using System.Threading.Tasks;
 
     using Xamarin.Forms;
@@ -20,6 +17,11 @@ namespace ACME.Services.Navigation
         public async Task NavigateTo(Type type)
         {
             await Application.Current.MainPage.Navigation.PushAsync((dynamic)Activator.CreateInstance(type));
+        }
+
+        public async Task Back()
+        {
+            await Application.Current.MainPage.Navigation.PopAsync(true);
         }
 
         #endregion

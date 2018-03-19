@@ -1,12 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:ACME.Converters"
+             xmlns:locator="clr-namespace:ACME.ViewModels.Base"
              x:Class="ACME.App">
     <Application.Resources>
         <!-- Application resource dictionary -->
         <ResourceDictionary>
-            <x:String x:Key="User">q</x:String>
-            <x:String x:Key="Password">q</x:String>
+            <locator:Locator x:Key="Locator"></locator:Locator>
+            <converter:BooleanNegationConverter x:Key="BooleanNegationConverter"/>
+            <x:String x:Key="User">1</x:String>
+            <x:String x:Key="Password">1</x:String>
             <x:Boolean x:Key="Mock">True</x:Boolean>
             <Color x:Key="MainColor">#3dcb01</Color>
             <Color x:Key="AccentColor">#DE572A</Color>

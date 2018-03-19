@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-namespace ACME.Pages
+﻿namespace ACME.Pages
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class DashBoardPage : ContentPage
-	{
-		public DashBoardPage ()
-		{
-			InitializeComponent ();
-		}
-	}
+    using Xamarin.Forms;
+    using Xamarin.Forms.Xaml;
+
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class DashBoardPage : ContentPage
+    {
+        #region Constructors
+
+        public DashBoardPage()
+        {
+            this.InitializeComponent();
+        }
+
+        #endregion
+    }
 }

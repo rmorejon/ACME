@@ -1,33 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:ACME.ViewModels;assembly=ACME"
+             xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
              NavigationPage.HasNavigationBar="False"
+             x:Name="ContentPage"
+             BindingContext="{Binding Main.DashBoardPageViewModel, Source={StaticResource Locator}}"
              x:Class="ACME.Pages.DashBoardPage">
-    <ContentPage.BindingContext>
-        <viewModels:DashBoardPageViewModel />
-    </ContentPage.BindingContext>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="New Ticket"
-                     Order="Primary"
-                     Icon="add.png" />
-        <ToolbarItem Text="Menu"
-                     Order="Primary"
-                     Icon="menu.png" />
-    </ContentPage.ToolbarItems>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                    iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
+    <ContentPage.Behaviors>
+        <behaviorsPack:EventToCommandBehavior EventName="Appearing"
+                                              Command="{Binding RefreshCommand}" />
+    </ContentPage.Behaviors>
     <ContentPage.Content>
         <Grid HorizontalOptions="FillAndExpand"
               VerticalOptions="FillAndExpand">
             <Grid.RowDefinitions>
-                <RowDefinition Height="100" />
+                <RowDefinition Height="75" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackLayout BackgroundColor="Transparent"
+            <StackLayout BackgroundColor="#f2f2f2"
                          HorizontalOptions="FillAndExpand"
                          VerticalOptions="FillAndExpand">
                 <Grid HorizontalOptions="FillAndExpand"
-                      VerticalOptions="FillAndExpand">
+                      Margin="0,15,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100" />
                         <ColumnDefinition Width="100" />
@@ -35,136 +35,167 @@
                         <ColumnDefinition Width="100" />
                         <ColumnDefinition Width="100" />
                     </Grid.ColumnDefinitions>
-                    
-                    <Image Margin="15,0,0,15"
+                    <Image Margin="15,0,0,0"
                            Aspect="AspectFill"
+                           BindingContext="{Binding Main, Source={StaticResource Locator}}"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"
-                           Source="calendar.png"
-                           />
+                           Source="calendar.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoCommand}"
+                                                  CommandParameter="CalendarPage" />
+                        </Image.GestureRecognizers>
+                    </Image>
                     <Image Grid.Column="1"
-                           Margin="0,0,0,15"
                            Aspect="AspectFill"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"
                            Source="sync.png" />
                     <Image Grid.Column="2"
-                           Margin="15,0,0,15"
+                           Margin="15,0,0,0"
                            Aspect="AspectFill"
                            VerticalOptions="CenterAndExpand"
                            HorizontalOptions="CenterAndExpand"
-                           Source="logo.png" />
-                    <Image HeightRequest="90"
-                           WidthRequest="90"
-                           Grid.Column="3"
-                           Margin="15,0,0,15"
+                           Source="acme.png" />
+                    <Image Grid.Column="3"
+                           Margin="15,0,0,0"
                            Aspect="AspectFill"
+                           BindingContext="{Binding Main, Source={StaticResource Locator}}"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"
-                           Source="add.png" />
-                    <Image HeightRequest="90"
-                           WidthRequest="90"
-                           Grid.Column="4"
-                           Margin="0,0,0,15"
+                           Source="add.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoCommand}"
+                                                  CommandParameter="NewTicketPage" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Grid.Column="4"
+                           x:Name="ImageMenu"
                            Aspect="AspectFill"
+                           BindingContext="{Binding Main, Source={StaticResource Locator}}"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"
-                           Source="menu.png" />
+                           Source="menu.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowPopupCommand}"
+                                                  CommandParameter="{Binding Source={x:Reference ImageMenu}}" />
+                        </Image.GestureRecognizers>
+                    </Image>
                 </Grid>
             </StackLayout>
-            <Label Text="   Dec 24, 2016"
-                   Grid.Row="1"
-                   FontSize="25"
-                   HorizontalTextAlignment="Start"
-                   VerticalTextAlignment="Center"
-                   VerticalOptions="Center"
-                   BackgroundColor="LightGray"
-                   TextColor="DarkGray"
-                   LineBreakMode="TailTruncation" />
+            <StackLayout Grid.Row="1"
+                         BackgroundColor="LightGray"
+                         VerticalOptions="FillAndExpand"
+                         HorizontalOptions="FillAndExpand">
+                <Label Text="{Binding CalendarPageViewModel.SelectedDate, StringFormat='{}{0:MMM d, yyyy}'}"
+                       BindingContext="{Binding Main, Source={StaticResource Locator}}"
+                       FontSize="25"
+                       Margin="25,0,0,0"
+                       HorizontalTextAlignment="Start"
+                       VerticalTextAlignment="Center"
+                       VerticalOptions="Center"
+                       HorizontalOptions="FillAndExpand"
+                       TextColor="DarkGray" />
+            </StackLayout>
             <ScrollView Grid.Row="2">
-                <ListView SeparatorColor="Transparent"
-                          SeparatorVisibility="Default"
-                          HasUnevenRows="True"
-                          Margin="10"
-                          RowHeight="120"
-                          ItemsSource="{Binding Tickets}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell IsEnabled="false">
-                                <StackLayout BackgroundColor="Transparent"
-                                             Padding="0,15,0,15"
-                                             HorizontalOptions="FillAndExpand"
-                                             VerticalOptions="FillAndExpand">
-                                    <Grid BackgroundColor="White"
-                                          Padding="10"
-                                          ColumnSpacing="15"
-                                          Margin="20,0,20,0"
-                                          VerticalOptions="FillAndExpand">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="28" />
-                                            <RowDefinition Height="28" />
-                                            <RowDefinition Height="28" />
-                                            <RowDefinition Height="28" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                            <ColumnDefinition Width="2"></ColumnDefinition>
-                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-
-                                        <Label Text="{Binding DateTime, StringFormat='{}{0:HH\\:MM tt}'}"
-                                               Grid.Row="0"
-                                               Margin="3,6,6,0"
-                                               FontAttributes="Bold"
-                                               FontSize="20"
-                                               Grid.Column="0"
-                                               LineBreakMode="TailTruncation" />
-                                        <Label Text="{Binding DateTime, StringFormat='{}{0:M/dd/yyyy}'}"
-                                               Grid.Row="1"
-                                               Grid.Column="0"
-                                               FontSize="20"
-                                               Margin="3,6,6,0"
-                                               TextColor="DarkGray"
-                                               LineBreakMode="TailTruncation" />
-                                        <Label Text="{Binding TicketId, StringFormat='Ticket #{0}'}"
-                                               Grid.Row="3"
-                                               Grid.Column="0"
-                                               Margin="3,6,6,0"
-                                               FontSize="20"
-                                               TextColor="DarkGray"
-                                               LineBreakMode="TailTruncation" />
-                                        <BoxView VerticalOptions="FillAndExpand"
-                                                 HorizontalOptions="Center"
-                                                 BackgroundColor="#dddddd"
-                                                 Grid.RowSpan="4"
-                                                 Grid.Row="0"
-                                                 Grid.Column="1"></BoxView>
-
-                                        <Label Text="{Binding Address}"
-                                               Grid.Column="2"
-                                               Margin="3,6,6,0"
-                                               FontAttributes="Bold"
-                                               FontSize="20"
-                                               Grid.Row="0"
-                                               LineBreakMode="TailTruncation" />
-                                        <Button Grid.Column="3"
-                                                Grid.Row="0"
-                                                Grid.RowSpan="3"
-                                                Margin="0,0,20,0"
-                                                AutomationId="authButton"
-                                                Text="ViewTicket"
-                                                TextColor="White"
-                                                VerticalOptions="Center"
-                                                BackgroundColor="{StaticResource MainColor}"
-                                                HorizontalOptions="End">
-                                        </Button>
-                                    </Grid>
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <StackLayout Orientation="Vertical">
+                    <Label Font="150"
+                           FontSize="70"
+                           BackgroundColor="Transparent"
+                           FontAttributes="Bold"
+                           Text="No ticket's in selected day"
+                           TextColor="DarkGray"
+                           IsVisible="{Binding IsData, Converter={StaticResource BooleanNegationConverter}}"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="CenterAndExpand" />
+                    <ListView SeparatorColor="Transparent"
+                              SeparatorVisibility="None"
+                              IsVisible="{Binding IsData}"
+                              HasUnevenRows="True"
+                              RowHeight="200"
+                              ItemsSource="{Binding Tickets}"
+                              SelectedItem="{Binding SelectedTicket}"
+                              RefreshCommand="{Binding RefreshCommand}"
+                              IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout BackgroundColor="Transparent"
+                                                 HorizontalOptions="FillAndExpand"
+                                                 Padding="0,15,0,15"
+                                                 VerticalOptions="FillAndExpand">
+                                        <Grid BackgroundColor="LightGray"
+                                              Padding="10"
+                                              Margin="20,0,20,0"
+                                              ColumnSpacing="15"
+                                              VerticalOptions="FillAndExpand">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="30" />
+                                                <RowDefinition Height="28" />
+                                                <RowDefinition Height="28" />
+                                                <RowDefinition Height="28" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="2" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding FullTime}"
+                                                   Grid.Row="0"
+                                                   Margin="3,6,6,0"
+                                                   FontAttributes="Bold"
+                                                   FontSize="20"
+                                                   Grid.Column="0"
+                                                   LineBreakMode="TailTruncation" />
+                                            <Label Text="{Binding DateTime, StringFormat='{}{0:M/dd/yyyy}'}"
+                                                   Grid.Row="1"
+                                                   Grid.Column="0"
+                                                   FontSize="20"
+                                                   Margin="3,6,6,0"
+                                                   TextColor="DarkGray"
+                                                   LineBreakMode="TailTruncation" />
+                                            <Label Text="{Binding TicketId, StringFormat='Ticket #{0}'}"
+                                                   Grid.Row="3"
+                                                   Grid.Column="0"
+                                                   Margin="3,6,6,0"
+                                                   FontSize="20"
+                                                   TextColor="DarkGray" />
+                                            <BoxView VerticalOptions="FillAndExpand"
+                                                     HorizontalOptions="Center"
+                                                     BackgroundColor="#dddddd"
+                                                     Grid.RowSpan="4"
+                                                     Grid.Row="0"
+                                                     Grid.Column="1" />
+                                            <Label Text="{Binding Address}"
+                                                   WidthRequest="150"
+                                                   Grid.Column="2"
+                                                   Grid.Row="0"
+                                                   Grid.RowSpan="4"
+                                                   Margin="3,6,6,0"
+                                                   FontAttributes="Bold"
+                                                   FontSize="20"
+                                                   LineBreakMode="WordWrap" />
+                                            <Button Grid.Column="3"
+                                                    Grid.Row="0"
+                                                    Grid.RowSpan="3"
+                                                    Margin="0,0,20,5"
+                                                    AutomationId="authButton"
+                                                    WidthRequest="120"
+                                                    Text="View Ticket"
+                                                    TextColor="White"
+                                                    VerticalOptions="Center"
+                                                    Command="{Binding BindingContext.EditCommand, Source={x:Reference ContentPage}}"
+                                                    CommandParameter="{Binding .}"
+                                                    BackgroundColor="{StaticResource MainColor}"
+                                                    HorizontalOptions="End" />
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
             </ScrollView>
         </Grid>
     </ContentPage.Content>

@@ -94,6 +94,8 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Config.cs" />
+    <Compile Include="Renderers\ExtendedListViewCellRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -112,6 +114,29 @@
     <BundleResource Include="Resources\Icon-Small%402x.png" />
     <BundleResource Include="Resources\Icon-Small%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <BundleResource Include="Resources\acme.png" />
+    <BundleResource Include="Resources\add.png" />
+    <BundleResource Include="Resources\calendar.png" />
+    <BundleResource Include="Resources\direction.png" />
+    <BundleResource Include="Resources\logo.png" />
+    <BundleResource Include="Resources\menu.png" />
+    <BundleResource Include="Resources\password.png" />
+    <BundleResource Include="Resources\phone.png" />
+    <BundleResource Include="Resources\schedule.png" />
+    <BundleResource Include="Resources\sync.png" />
+    <BundleResource Include="Resources\user.png" />
+    <BundleResource Include="Resources\document.png" />
+    <BundleResource Include="Resources\marker.png" />
+    <BundleResource Include="Resources\phoneCall.png" />
+    <BundleResource Include="Resources\save.png" />
+    <BundleResource Include="Resources\sent.png" />
+    <BundleResource Include="Resources\workTicket.png" />
+    <BundleResource Include="Resources\camera.png" />
+    <BundleResource Include="Resources\exit.png" />
+    <BundleResource Include="Resources\purchasing.png" />
+    <BundleResource Include="Resources\work.png" />
+    <BundleResource Include="Resources\overview.png" />
+    <BundleResource Include="Resources\getDirections.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -129,13 +154,40 @@
     <PackageReference Include="MvvmLightLibs">
       <Version>5.4.1</Version>
     </PackageReference>
+    <PackageReference Include="Naxam.BottomTabbedPage">
+      <Version>0.2.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="NETStandard.Library">
+      <Version>2.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Portable.Xaml">
+      <Version>0.21.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugin.PopupMenu">
+      <Version>1.1.0</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
+    <PackageReference Include="SQLite.Net-PCL">
+      <Version>3.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms.BehaviorsPack">
+      <Version>1.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms.Maps">
+      <Version>2.5.0.280555</Version>
+    </PackageReference>
+    <PackageReference Include="XamForms.Controls.Calendar">
+      <Version>1.1.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\ACME\ACME.csproj">
-      <Project>{B3A1C094-5E9C-448F-BEE6-05F76F2332E5}</Project>
+      <Project>{99E0F768-BD60-460A-BD7D-A9E8A27757B8}</Project>
       <Name>ACME</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\dashboard.png" />
   </ItemGroup>
 </Project>

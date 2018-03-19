@@ -15,15 +15,15 @@
     {
         #region Fields
 
+        private readonly IDialogService dialogService;
+
+        private readonly INavigationService navigationService;
+
         private bool isRunning;
 
         private string password;
 
         private string user;
-
-        private readonly IDialogService dialogService;
-
-        private readonly INavigationService navigationService;
 
         #endregion
 
@@ -99,13 +99,8 @@
         {
             if (Application.Current.Resources["User"].ToString() == this.User
                 && Application.Current.Resources["Password"].ToString() == this.User)
-            {
                 this.navigationService.SetMainPage(Type.GetType("ACME.Pages.DashBoardPage"));
-            }
-            else
-            {
-                await this.dialogService.ShowAlertAsync("Credenciales inválidas", "Error", "Close");
-            }
+            else await this.dialogService.ShowAlertAsync("Credenciales inválidas", "Error", "Close");
         }
 
         #endregion

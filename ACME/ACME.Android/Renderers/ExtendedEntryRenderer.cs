@@ -59,30 +59,37 @@ namespace ACME.Droid.Renderers
 
             var element = (ExtendedEntry)this.Element;
 
-
             var editText = this.Control;
             if (!string.IsNullOrEmpty(element.Image))
-            {
                 switch (element.ImageAlignment)
                 {
                     case ImageAlignment.Left:
-                        editText.SetCompoundDrawablesWithIntrinsicBounds(this.GetDrawable(element.Image, element), null, null, null);
+                        editText.SetCompoundDrawablesWithIntrinsicBounds(
+                            this.GetDrawable(element.Image, element),
+                            null,
+                            null,
+                            null);
                         break;
                     case ImageAlignment.Right:
-                        editText.SetCompoundDrawablesWithIntrinsicBounds(null, null, this.GetDrawable(element.Image, element), null);
+                        editText.SetCompoundDrawablesWithIntrinsicBounds(
+                            null,
+                            null,
+                            this.GetDrawable(element.Image, element),
+                            null);
                         break;
                 }
-            }
             editText.CompoundDrawablePadding = 25;
         }
 
         private BitmapDrawable GetDrawable(string imageEntryImage, ExtendedEntry element)
         {
-            int resID = this.Resources.GetIdentifier(imageEntryImage, "drawable", this.Context.PackageName);
+            var resID = this.Resources.GetIdentifier(imageEntryImage, "drawable", this.Context.PackageName);
             var drawable = ContextCompat.GetDrawable(this.Context, resID);
             var bitmap = ((BitmapDrawable)drawable).Bitmap;
 
-            return new BitmapDrawable(this.Resources, Bitmap.CreateScaledBitmap(bitmap, element.ImageWidth * 2, element.ImageHeight * 2, true));
+            return new BitmapDrawable(
+                this.Resources,
+                Bitmap.CreateScaledBitmap(bitmap, element.ImageWidth * 2, element.ImageHeight * 2, true));
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

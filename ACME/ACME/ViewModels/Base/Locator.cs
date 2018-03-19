@@ -2,6 +2,7 @@
 {
     using System;
 
+    using ACME.Services.Data;
     using ACME.Services.Dialog;
     using ACME.Services.Navigation;
 
@@ -11,9 +12,9 @@
     {
         #region Fields
 
-        private IContainer container;
-
         private readonly ContainerBuilder containerBuilder;
+
+        private IContainer container;
 
         #endregion
 
@@ -22,9 +23,10 @@
         public Locator()
         {
             this.containerBuilder = new ContainerBuilder();
-            //this.containerBuilder.RegisterType<DialogService>().As<IDialogService>();
             this.containerBuilder.RegisterType<DialogService>().SingleInstance();
             this.containerBuilder.RegisterType<NavigationService>().SingleInstance();
+            this.containerBuilder.RegisterType<DataService>().SingleInstance();
+            this.Main = MainViewModel.Instance;
         }
 
         #endregion
@@ -32,6 +34,8 @@
         #region Properties Public
 
         public static Locator Instance { get; } = new Locator();
+
+        public MainViewModel Main { get; set; }
 
         #endregion
 
